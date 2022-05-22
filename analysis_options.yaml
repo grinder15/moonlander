@@ -2,3 +2,12 @@ include: package:very_good_analysis/analysis_options.yaml
 
 linter:
   rules:
+    library_private_types_in_public_api: false
+    avoid_renaming_method_parameters: false
+    public_member_api_docs: false
+    prefer_int_literals: false
+
+analyzer:
+  exclude:
+    - lib/**.freezed.dart
+    - lib/**.g.dart

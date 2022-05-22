@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:moonlander/components/explosion_component.dart';
 import 'package:moonlander/components/line_component.dart';
 import 'package:moonlander/components/map_component.dart';
-import 'package:moonlander/components/particel_generator.dart';
+import 'package:moonlander/components/particle_generator.dart';
 import 'package:moonlander/game_state.dart';
 import 'package:moonlander/main.dart';
 
@@ -71,16 +71,12 @@ class RocketComponent extends SpriteAnimationGroupComponent<RocketState>
   final _fuelUsageBySecond = 10;
 
   late final Vector2 _particelOffset;
-  double _fuel = 100;
+
+  ///Fuel remaning
+  double fuel = 100;
 
   ///Acceleration factor of the rocket
   final speed = 5;
-
-  ///Fuel remaning
-  double get fuel => _fuel;
-  set fuel(double value) {
-    _fuel = value;
-  }
 
   ///Velocity of the rocket
   Vector2 get velocity => _velocity;
@@ -184,7 +180,7 @@ class RocketComponent extends SpriteAnimationGroupComponent<RocketState>
 
   void _createEngineParticels() {
     gameRef.add(
-      ParticelGenerator.createEngineParticle(
+      ParticleGenerator.createEngineParticle(
         position: position.clone()..add(_particelOffset),
       ),
     );
@@ -197,8 +193,8 @@ class RocketComponent extends SpriteAnimationGroupComponent<RocketState>
       final joyStickDelta = joystick.delta.clone();
       joyStickDelta.y = joyStickDelta.y.clamp(-1 * double.infinity, 0);
       _velocity.add(joyStickDelta.normalized() * (speed * dt));
-      _fuel -= _fuelUsageBySecond * dt;
-      if (_fuel < 0) {
+      fuel -= _fuelUsageBySecond * dt;
+      if (fuel < 0) {
         _loose();
       } else {
         _createEngineParticels();
@@ -382,7 +378,7 @@ class RocketComponent extends SpriteAnimationGroupComponent<RocketState>
     _velocity.scale(0);
     current = RocketState.idle;
     angle = 0;
-    _fuel = 100;
+    fuel = 100;
     _flyingTime = 0;
   }
 }

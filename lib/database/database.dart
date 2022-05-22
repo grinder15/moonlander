@@ -34,14 +34,16 @@ class MoonLanderDatabase extends _$MoonLanderDatabase {
             ),
           );
           await batch(
-            (batch) => initialSeeds.forEach(
-              (seed) => batch.insert(
-                level,
-                LevelCompanion.insert(
-                  seed: seed,
-                ),
-              ),
-            ),
+            (batch) {
+              for (final seed in initialSeeds) {
+                batch.insert(
+                  level,
+                  LevelCompanion.insert(
+                    seed: seed,
+                  ),
+                );
+              }
+            },
           );
         },
       );

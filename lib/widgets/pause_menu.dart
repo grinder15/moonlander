@@ -8,11 +8,14 @@ import 'package:moonlander/main.dart';
 
 /// By using the Flutter Widgets we can handle all non-game related UI through
 /// widgets.
-
 class PauseMenu extends StatefulWidget {
+  const PauseMenu({
+    Key? key,
+    required this.game,
+  }) : super(key: key);
+
   /// The reference to the game.
   final MoonlanderGame game;
-  const PauseMenu({Key? key, required this.game}) : super(key: key);
 
   @override
   _PauseMenuState createState() => _PauseMenuState();
@@ -22,19 +25,19 @@ class _PauseMenuState extends State<PauseMenu> {
   late final BannerAd banner;
   final listener = BannerAdListener(
     // Called when an ad is successfully received.
-    onAdLoaded: (Ad ad) => print('Ad loaded.'),
+    onAdLoaded: (Ad ad) => debugPrint('Ad loaded.'),
     // Called when an ad request failed.
     onAdFailedToLoad: (Ad ad, LoadAdError error) {
       // Dispose the ad here to free resources.
       ad.dispose();
-      print('Ad failed to load: $error');
+      debugPrint('Ad failed to load: $error');
     },
     // Called when an ad opens an overlay that covers the screen.
-    onAdOpened: (Ad ad) => print('Ad opened.'),
+    onAdOpened: (Ad ad) => debugPrint('Ad opened.'),
     // Called when an ad removes an overlay that covers the screen.
-    onAdClosed: (Ad ad) => print('Ad closed.'),
+    onAdClosed: (Ad ad) => debugPrint('Ad closed.'),
     // Called when an impression occurs on the ad.
-    onAdImpression: (Ad ad) => print('Ad impression.'),
+    onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
   );
 
   @override

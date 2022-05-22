@@ -5,13 +5,15 @@ import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
 
 ///short hand function to all particel effects for Moonlander
-class ParticelGenerator {
+class ParticleGenerator {
   static final Random _random = Random();
 
   ///Create engine particels
-  static ParticleComponent createEngineParticle({required Vector2 position}) {
-    return ParticleComponent(
-      AcceleratedParticle(
+  static ParticleSystemComponent createEngineParticle({
+    required Vector2 position,
+  }) {
+    return ParticleSystemComponent(
+      particle: AcceleratedParticle(
         position: position,
         //Create a downards shooting particel
         speed: Vector2(
